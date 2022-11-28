@@ -13,7 +13,7 @@
           Login
         </v-list-item>
         <v-list-item v-else @click="_logout">
-          logout
+          Logout
         </v-list-item>
 
         <v-list-item
