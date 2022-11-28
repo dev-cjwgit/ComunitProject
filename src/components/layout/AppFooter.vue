@@ -7,10 +7,10 @@
           Copyright &copy;
           <a
               class="white--text"
-              href="https://heroui.net"
+              href="https://github.com/hyeonslove"
               rel="noopener noreferrer"
               target="_blank">
-            HreoUI
+            CJW
           </a>
           {{ new Date().getFullYear() }}. All rights reserved.
         </div>

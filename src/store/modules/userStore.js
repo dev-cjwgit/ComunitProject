@@ -48,9 +48,11 @@ const userStore = {
     },
     actions: {
         async userLogin({commit}, user) {
+            let result = false;
             let data = await autoCheckTokenWithParams(login, user);
             if (data !== false) {
                 if (data.result === true) {
+                    result = true;
                     commit("SET_IS_LOGIN", true);
                     commit("SET_USER_UID", data.uid);
                     sessionStorage.setItem("access-token", data["access-token"]);
@@ -60,6 +62,7 @@ const userStore = {
                     await alert(data.msg);
                 }
             }
+            return result;
         },
 
         async userLogout({commit}) {

@@ -39,7 +39,7 @@ export default {
   data() {
     return {
       user: {
-        id: 'cjw.git',
+        id: 'cjwgit',
         pw: 'ss1235789',
       },
     };
@@ -47,9 +47,9 @@ export default {
   methods: {
     ...mapActions("userStore", ["userLogin"]),
 
-    _userLogin() {
-      if (this.userLogin(this.user)) {
-        this.$router.push({name: "home"});
+    async _userLogin() {
+      if (await this.userLogin(this.user) === true) {
+        await this.$router.push({name: "home"});
       }
     },
   },
