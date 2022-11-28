@@ -16,6 +16,7 @@
                 :rules="idRules"
                 :counter="20"
                 label="아이디"
+                @keyup="_checkId"
                 required/>
 
             <v-text-field
@@ -40,6 +41,7 @@
                 :rules="emailRules"
                 :counter="30"
                 label="이메일"
+                @keyup="_checkEmail"
                 type="email"
                 required/>
 
@@ -98,7 +100,6 @@ export default {
         v => !!v || '아이디를 입력해주세요.',
         v => v.length <= 20 || '아이디는 20글자 이하만 가능합니다.',
         v => v.length >= 6 || '아이디는 6글자 이상이여야합니다.',
-        v => !this._checkId(v),
       ],
 
       pwRules: [
@@ -113,7 +114,6 @@ export default {
       emailRules: [
         v => !!v || '이메일을 입력해주세요.',
         v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || '이메일 형식이 아닙니다.',
-        v => !this._checkEmail(v),
       ],
 
       nameRules: [
@@ -136,12 +136,12 @@ export default {
         alert("빈칸을 채워주세요!!");
       }
     },
-    _checkId(v) {
-      if (v === '')
+    _checkId() {
+      if (this.signup.id === '')
         return false;
       this.signupRules({
         keyword: "id",
-        word: v,
+        word: this.signup.id,
       }).then(result => {
         if (result) {
           this.idErrMsg = "이미 존재하는 아이디입니다.";
@@ -152,12 +152,12 @@ export default {
 
     },
 
-    _checkEmail(v) {
-      if (v === '')
+    _checkEmail() {
+      if (this.signup.email === '')
         return false;
       this.signupRules({
         keyword: "email",
-        word: v,
+        word: this.signup.email,
       }).then(result => {
         if (result) {
           this.emailErrMsg = "이미 존재하는 이메일입니다.";
