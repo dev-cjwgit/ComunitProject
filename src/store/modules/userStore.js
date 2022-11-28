@@ -1,6 +1,6 @@
 import router from "@/router";
 
-import {login, tokenRegeneration, testFunc, signup, checkEmail} from "@/api/user";
+import {login, tokenRegeneration, testFunc, signup, checkEmail, signupRules} from "@/api/user";
 import store from "@/store";
 
 async function autoCheckTokenWithParams(func, params) {
@@ -130,6 +130,16 @@ const userStore = {
                 await alert(error.response.data.msg);
             })
 
+            return result;
+        },
+
+        async signupRules({commit}, params) {
+            let result = false;
+            await signupRules(params,
+                async ({data}) => {
+                    // console.log(data.result);
+                    result = data.result;
+                });
             return result;
         }
     },

@@ -11,6 +11,7 @@
         <v-card-text>
           <v-form ref="form" lazy-validation>
             <v-text-field
+                :error-messages="idErrMsg"
                 v-model="signup.id"
                 :rules="idRules"
                 :counter="20"
@@ -34,6 +35,7 @@
                 required/>
 
             <v-text-field
+                :error-messages="emailErrMsg"
                 v-model="signup.email"
                 :rules="emailRules"
                 :counter="30"
@@ -86,12 +88,17 @@ export default {
         email: '',
         name: '',
         nickname: '',
+
       },
+
+      idErrMsg: '',
+      emailErrMsg: '',
 
       idRules: [
         v => !!v || '아이디를 입력해주세요.',
         v => v.length <= 20 || '아이디는 20글자 이하만 가능합니다.',
         v => v.length >= 6 || '아이디는 6글자 이상이여야합니다.',
+        v => !this._checkId(v),
       ],
 
       pwRules: [
@@ -105,7 +112,8 @@ export default {
 
       emailRules: [
         v => !!v || '이메일을 입력해주세요.',
-        v => /.+@.+\..+/.test(v) || '이메일 형식이 아닙니다.',
+        v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || '이메일 형식이 아닙니다.',
+        v => !this._checkEmail(v),
       ],
 
       nameRules: [
@@ -116,7 +124,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions("userStore", ["userSignup"]),
+    ...mapActions("userStore", ["userSignup", "signupRules"]),
 
     async _signup() {
       const valid = await this.$refs.form.validate();
@@ -128,6 +136,38 @@ export default {
         alert("빈칸을 채워주세요!!");
       }
     },
+    _checkId(v) {
+      if (v === '')
+        return false;
+      this.signupRules({
+        keyword: "id",
+        word: v,
+      }).then(result => {
+        if (result) {
+          this.idErrMsg = "이미 존재하는 아이디입니다.";
+        } else {
+          this.idErrMsg = "";
+        }
+      });
+
+    },
+
+    _checkEmail(v) {
+      if (v === '')
+        return false;
+      this.signupRules({
+        keyword: "email",
+        word: v,
+      }).then(result => {
+        if (result) {
+          this.emailErrMsg = "이미 존재하는 이메일입니다.";
+        } else {
+          this.emailErrMsg = "";
+        }
+      });
+    },
+
+
   },
   computed: {},
   created() {

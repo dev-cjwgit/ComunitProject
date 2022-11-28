@@ -27,4 +27,8 @@ async function testFunc(params, success, fail) {
     await api_headers.get(`/test`).then(success).catch(fail);
 }
 
-export {login, tokenRegeneration, testFunc, signup, checkEmail};
+async function signupRules(params, success, fail) {
+    await api.get(`/axios/signup/rules/${params.keyword}/${params.word}`).then(success).catch(fail);
+}
+
+export {login, tokenRegeneration, testFunc, signup, checkEmail, signupRules};
