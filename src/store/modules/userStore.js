@@ -1,6 +1,6 @@
 import router from "@/router";
 
-import {login, tokenRegeneration, testFunc} from "@/api/user";
+import {login, tokenRegeneration, testFunc, signup} from "@/api/user";
 import store from "@/store";
 
 async function autoCheckTokenWithParams(func, params) {
@@ -47,6 +47,21 @@ const userStore = {
         },
     },
     actions: {
+        async userSignup({commit}, user) {
+            let result = false;
+            let data = await autoCheckTokenWithParams(signup, user);
+            if (data !== false) {
+                if (data.result === true) {
+                    result = true;
+                    await alert(data.msg);
+                } else {
+                    await alert(data.msg);
+                }
+            }
+
+            return result;
+        },
+
         async userLogin({commit}, user) {
             let result = false;
             let data = await autoCheckTokenWithParams(login, user);

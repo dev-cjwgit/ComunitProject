@@ -21,27 +21,6 @@ const authUser = async (to, from, next) => {
     }
 }
 
-async function autoCheck(func, params) {
-    await func(params,
-        ({data}) => {
-            return data;
-        },
-        async (error) => {
-            if (error.response.status === 401) {
-                await store.dispatch("userStore/tokenRegeneration", store.getters["userStore/getUserUidObserver"]);
-            }
-
-            func(params,
-                ({data}) => {
-                    return data;
-                },
-                async () => {
-                    return false;
-                }
-            );
-        })
-}
-
 const routes = [
     {
         path: '/',
@@ -52,7 +31,12 @@ const routes = [
         path: '/login',
         name: 'login',
         component: () => import("@/views/AppLogin.vue"),
-    }
+    },
+    {
+        path: '/signup',
+        name: 'signup',
+        component: () => import("@/components/user/UserSignup")
+    },
 ]
 
 const router = new VueRouter({
