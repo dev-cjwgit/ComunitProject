@@ -118,6 +118,7 @@ const userStore = {
 
         async checkEmail({commit}, token) {
             let result = false;
+
             await checkEmail(token, ({data}) => {
                 if (data.result === true) {
                     alert(data.msg);
@@ -125,6 +126,8 @@ const userStore = {
                 } else {
                     alert(data.msg);
                 }
+            }, async (error) => {
+                await alert(error.response.data.msg);
             })
 
             return result;

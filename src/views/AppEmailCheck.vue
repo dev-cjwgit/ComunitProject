@@ -20,9 +20,9 @@ export default {
   computed: {},
   async created() {
     this.token = this.$route.query.token;
-    if (await this.checkEmail(this.token) === true) {
-      await this.$router.push({name: "login"});
-    }
+    await this.checkEmail(this.token)
+
+    await this.$router.push({name: "login"});
   },
 }
 </script>
