@@ -56,7 +56,9 @@
                 v-model="signup.nickname"
                 :rules="nameRules"
                 :counter="30"
+                :error-messages="nicknameErrMsg"
                 label="닉네임"
+                @keyup="_checkNickname"
                 required/>
             <v-col class="text-right">
               <v-btn
@@ -95,6 +97,7 @@ export default {
 
       idErrMsg: '',
       emailErrMsg: '',
+      nicknameErrMsg: '',
 
       idRules: [
         v => !!v || '아이디를 입력해주세요.',
@@ -128,12 +131,12 @@ export default {
 
     async _signup() {
       const valid = await this.$refs.form.validate();
-      if (valid) {
+      if (valid && this.idErrMsg === '' && this.emailErrMsg === '' && this.nicknameErrMsg === '') {
         if (await this.userSignup(this.signup) === true) {
           await this.$router.push({name: "login"});
         }
       } else {
-        alert("빈칸을 채워주세요!!");
+        alert("제대로 입력해주세요.");
       }
     },
     _checkId() {
@@ -166,7 +169,20 @@ export default {
         }
       });
     },
-
+    _checkNickname() {
+      if (this.signup.nickname === '')
+        return false;
+      this.signupRules({
+        keyword: "nickname",
+        word: this.signup.nickname,
+      }).then(result => {
+        if (result) {
+          this.nicknameErrMsg = "이미 존재하는 닉네임입니다.";
+        } else {
+          this.nicknameErrMsg = "";
+        }
+      });
+    }
 
   },
   computed: {},
