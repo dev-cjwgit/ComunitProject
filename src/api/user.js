@@ -12,6 +12,10 @@ async function signup(user, success, fail) {
     await api.post(`/user/signup`, JSON.stringify(user)).then(success).catch(fail);
 }
 
+async function checkEmail(token, success, fail) {
+    await api.get(`/user/check/${token}`).then(success).catch(fail);
+}
+
 
 async function tokenRegeneration(uid, success, fail) {
     api_headers.defaults.headers["refresh-token"] = sessionStorage.getItem("refresh-token"); //axios header에 refresh-token 셋팅
@@ -23,4 +27,4 @@ async function testFunc(params, success, fail) {
     await api_headers.get(`/test`).then(success).catch(fail);
 }
 
-export {login, tokenRegeneration, testFunc, signup};
+export {login, tokenRegeneration, testFunc, signup, checkEmail};

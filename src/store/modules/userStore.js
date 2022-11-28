@@ -1,6 +1,6 @@
 import router from "@/router";
 
-import {login, tokenRegeneration, testFunc, signup} from "@/api/user";
+import {login, tokenRegeneration, testFunc, signup, checkEmail} from "@/api/user";
 import store from "@/store";
 
 async function autoCheckTokenWithParams(func, params) {
@@ -15,18 +15,21 @@ async function autoCheckTokenWithParams(func, params) {
             if (error.response.status === 401) {
                 console.log("token 재발급 시도");
                 await store.dispatch("userStore/tokenRegeneration", store.getters["userStore/getUserUidObserver"]);
+                func(params,
+                    ({data}) => {
+                        console.log("데이터 GET");
+                        result = data;
+                    },
+                    async (error) => {
+                        if (error.response.status === 401) {
+                            console.log("로그인 만료");
+                            result = false;
+                        }
+                    }
+                );
+            } else {
+                result = error.response.data;
             }
-
-            func(params,
-                ({data}) => {
-                    console.log("데이터 GET");
-                    result = data;
-                },
-                async () => {
-                    console.log("로그인 만료");
-                    result = false;
-                }
-            );
         })
     return result;
 }
@@ -77,6 +80,7 @@ const userStore = {
                     await alert(data.msg);
                 }
             }
+
             return result;
         },
 
@@ -112,6 +116,19 @@ const userStore = {
             );
         },
 
+        async checkEmail({commit}, token) {
+            let result = false;
+            await checkEmail(token, ({data}) => {
+                if (data.result === true) {
+                    alert(data.msg);
+                    result = true;
+                } else {
+                    alert(data.msg);
+                }
+            })
+
+            return result;
+        }
     },
 
     mutations: {

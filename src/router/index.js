@@ -33,6 +33,11 @@ const routes = [
         component: () => import("@/views/AppLogin.vue"),
     },
     {
+        path: '/check',
+        name: "check",
+        component: () => import("@/views/AppEmailCheck"),
+    },
+    {
         path: '/signup',
         name: 'signup',
         component: () => import("@/components/user/UserSignup")
@@ -40,6 +45,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
+    mode: 'history',
     routes,
     scrollBehavior() {
         document.getElementById('app').scrollIntoView();
