@@ -9,7 +9,7 @@
         dark
     >
       <v-list color="primary" nav>
-        <v-list-item v-if="!getisLoginObserver">
+        <v-list-item v-if="!getisLoginObserver" :to="{name: 'login'}">
           Login
         </v-list-item>
         <v-list-item v-else @click="_logout">
