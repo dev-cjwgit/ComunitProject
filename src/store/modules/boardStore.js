@@ -7,22 +7,22 @@ async function autoCheckTokenWithParams(func, params) {
 
     await func(params,
         async ({data}) => {
-            console.log("데이터 GET1");
+            // console.log("데이터 GET1");
             result = data;
         },
         async (error) => {
             if (error.response.status === 401) {
-                console.log("token 재발급 시도");
+                // console.log("token 재발급 시도");
                 await store.dispatch("userStore/tokenRegeneration", store.getters["userStore/getUserUidObserver"]);
 
                 await func(params,
                     ({data}) => {
-                        console.log("데이터 GET2");
+                        // console.log("데이터 GET2");
                         result = data;
                     },
                     async (error) => {
                         if (error.response.status === 401) {
-                            console.log("로그인 만료");
+                            // console.log("로그인 만료");
                             result = false;
                         }
                     }
@@ -31,7 +31,7 @@ async function autoCheckTokenWithParams(func, params) {
                 result = error.response.data;
             }
         });
-    console.log("값 리턴");
+    // console.log("값 리턴");
     return result;
 }
 
