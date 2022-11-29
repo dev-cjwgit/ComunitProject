@@ -3,7 +3,7 @@
     <board-navigator @clearPage="clearPage"/>
     <board-search/>
     <board-list/>
-    <board-pagination ref="apiRequest"/>
+    <board-pagination ref="pagination"/>
   </v-container>
 </template>
 
@@ -26,7 +26,9 @@ export default {
   },
   methods: {
     clearPage() {
-      this.$refs.apiRequest._clear();
+      // 자식의 메소드를 호출하여
+      // 게시판이 바뀌면 페이지를 1로 바꿔줌.
+      this.$refs.pagination._clear();
     },
   }
 }

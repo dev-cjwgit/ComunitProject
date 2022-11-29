@@ -25,6 +25,8 @@ export default {
     _clear() {
       this.prev_page = 1;
     },
+
+    // TODO: range 개수 template 에서도 있음.
     onChagned() {
       let params = {
         board_kind_uid: this.getBoardKindUidObserver,
