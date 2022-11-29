@@ -3,6 +3,7 @@
     <board-navigator/>
     <board-search/>
     <board-list/>
+    <board-pagination/>
   </v-container>
 </template>
 
@@ -10,6 +11,7 @@
 import BoardSearch from "@/components/board/BoardSearch";
 import BoardNavigator from "@/components/board/BoardNavigator";
 import BoardList from "@/components/board/BoardList";
+import BoardPagination from "@/components/board/BoardPagination";
 
 export default {
   name: "AppBoard",
@@ -17,6 +19,7 @@ export default {
     BoardSearch,
     BoardNavigator,
     BoardList,
+    BoardPagination,
   },
 }
 </script>

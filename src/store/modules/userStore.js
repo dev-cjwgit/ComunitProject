@@ -8,7 +8,7 @@ async function autoCheckTokenWithParams(func, params) {
 
     await func(params,
         ({data}) => {
-            console.log("데이터 GET");
+            console.log("데이터 GET1");
             result = data;
         },
         async (error) => {
@@ -17,7 +17,7 @@ async function autoCheckTokenWithParams(func, params) {
                 await store.dispatch("userStore/tokenRegeneration", store.getters["userStore/getUserUidObserver"]);
                 func(params,
                     ({data}) => {
-                        console.log("데이터 GET");
+                        console.log("데이터 GET2");
                         result = data;
                     },
                     async (error) => {
@@ -30,7 +30,9 @@ async function autoCheckTokenWithParams(func, params) {
             } else {
                 result = error.response.data;
             }
-        })
+        });
+
+    console.log("값 리턴");
     return result;
 }
 

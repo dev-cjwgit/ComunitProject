@@ -5,10 +5,12 @@ import createPersistedState from "vuex-persistedstate";
 Vue.use(Vuex);
 
 import userStore from "@/store/modules/userStore";
+import boardStore from "@/store/modules/boardStore";
 
 export default new Vuex.Store({
     modules: {
         userStore,
+        boardStore,
     },
 
     plugins: [
