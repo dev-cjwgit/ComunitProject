@@ -42,6 +42,11 @@ const routes = [
         name: 'signup',
         component: () => import("@/components/user/UserSignup")
     },
+    {
+        path: `/board`,
+        name: 'board',
+        component: () => import("@/views/AppBoard")
+    },
 ]
 
 const router = new VueRouter({

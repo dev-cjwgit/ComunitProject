@@ -100,6 +100,10 @@ export default {
         title: "Home",
         to: "/",
       },
+      {
+        title: "Board",
+        to: "/board",
+      },
 
     ],
   }),
