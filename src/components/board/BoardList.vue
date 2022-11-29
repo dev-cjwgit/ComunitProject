@@ -47,21 +47,7 @@ import {mapGetters} from "vuex";
 export default {
   name: "BoardList",
   data() {
-    return {
-      headers: [
-        {
-          text: '번호',
-          align: 'center',
-          sortable: false,
-          value: 'name',
-        },
-        {text: 'Calories', value: 'calories'},
-        {text: 'Fat (g)', value: 'fat'},
-        {text: 'Carbs (g)', value: 'carbs'},
-        {text: 'Protein (g)', value: 'protein'},
-        {text: 'Iron (%)', value: 'iron'},
-      ],
-    };
+    return {};
   },
   methods: {
     _goDetail(board_uid) {

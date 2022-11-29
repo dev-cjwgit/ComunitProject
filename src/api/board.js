@@ -9,7 +9,12 @@ async function getBoardKindList(params, success, fail) {
 
 async function getBoardList(params, success, fail) {
     api_headers.defaults.headers["Authorization"] = "Bearer " + sessionStorage.getItem("access-token");
-    await api_headers.get(`/board/${params}`).then(success).catch(fail);
+    await api_headers.get(`/board/${params.board_kind_uid}?page=${params.page}&range=${params.range}`).then(success).catch(fail);
 }
 
-export {getBoardKindList, getBoardList};
+async function getBoardPages(params, success, fail) {
+    api_headers.defaults.headers["Authorization"] = "Bearer " + sessionStorage.getItem("access-token");
+    await api_headers.get(`/board/page/${params.board_kind_uid}/${params.page_range}`).then(success).catch(fail);
+}
+
+export {getBoardKindList, getBoardList, getBoardPages};

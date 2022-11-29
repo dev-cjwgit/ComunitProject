@@ -1,9 +1,9 @@
 <template>
   <v-container>
-    <board-navigator/>
+    <board-navigator @clearPage="clearPage"/>
     <board-search/>
     <board-list/>
-    <board-pagination/>
+    <board-pagination ref="apiRequest"/>
   </v-container>
 </template>
 
@@ -15,12 +15,20 @@ import BoardPagination from "@/components/board/BoardPagination";
 
 export default {
   name: "AppBoard",
+  data() {
+    return {}
+  },
   components: {
     BoardSearch,
     BoardNavigator,
     BoardList,
     BoardPagination,
   },
+  methods: {
+    clearPage() {
+      this.$refs.apiRequest._clear();
+    },
+  }
 }
 </script>
 

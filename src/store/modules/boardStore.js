@@ -1,6 +1,6 @@
 import router from "@/router";
 import store from "@/store";
-import {getBoardKindList, getBoardList} from "@/api/board"
+import {getBoardKindList, getBoardList, getBoardPages} from "@/api/board"
 
 async function autoCheckTokenWithParams(func, params) {
     let result = false;
@@ -39,17 +39,28 @@ async function autoCheckTokenWithParams(func, params) {
 const boardStore = {
     namespaced: true,
     state: {
+        max_page: 10,
+        board_kind_uid: 0,
         board_kind: [],
         board_list: [],
     },
     getters: {
+        getMaxPageObserver(state) {
+            return state.max_page;
+        },
+
         getBoardKindObserver(state) {
             return state.board_kind;
         },
 
         getBoardListObserver(state) {
             return state.board_list;
-        }
+        },
+
+        getBoardKindUidObserver(state) {
+            return state.board_kind_uid;
+        },
+
     },
     mutations: {
         SET_BOARD_KIND(state, payload) {
@@ -58,7 +69,15 @@ const boardStore = {
 
         SET_BOARD_LIST(state, payload) {
             state.board_list = payload;
-        }
+        },
+
+        SET_MAX_PAGE(state, payload) {
+            state.max_page = payload;
+        },
+
+        SET_BOARD_KIND_UID(state, payload) {
+            state.board_kind_uid = payload;
+        },
 
 
     },
@@ -72,11 +91,30 @@ const boardStore = {
             }
         },
 
-        async getBoardList({commit}, board_uid) {
-            let data = await autoCheckTokenWithParams(getBoardList, board_uid);
+        async getBoardList({commit, state}, params) {
+            let data = await autoCheckTokenWithParams(getBoardList, params);
             if (data !== true) {
                 if (data.result === true) {
                     commit("SET_BOARD_LIST", data.data);
+                }
+            }
+
+            let response = await autoCheckTokenWithParams(getBoardPages, {
+                board_kind_uid: state.board_kind_uid,
+                page_range: 10,
+            });
+            if (response !== true) {
+                if (data.result === true) {
+                    commit("SET_MAX_PAGE", response.data);
+                }
+            }
+        },
+
+        async getBoardPages({commit}, params) {
+            let data = await autoCheckTokenWithParams(getBoardPages, params);
+            if (data !== true) {
+                if (data.result === true) {
+                    commit("SET_MAX_PAGE", data.data);
                 }
             }
         }

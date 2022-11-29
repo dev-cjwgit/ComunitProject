@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from "vuex";
+import {mapActions, mapGetters, mapMutations} from "vuex";
 
 export default {
   name: "BoardNavigator",
@@ -28,9 +28,17 @@ export default {
 
   methods: {
     ...mapActions("boardStore", ["getBoardKindList", "getBoardList"]),
+    ...mapMutations("boardStore", ["SET_BOARD_KIND_UID"]),
 
-    _getBoardList(board_uid) {
-      this.getBoardList(board_uid);
+    _getBoardList(board_kind_uid) {
+      this.getBoardList({
+        board_kind_uid: board_kind_uid,
+        page: 1,
+        range: 10,
+      });
+      console.log("게시판번호는 " + board_kind_uid);
+      this.SET_BOARD_KIND_UID(board_kind_uid);
+      this.$emit("clearPage");
     }
   },
 
