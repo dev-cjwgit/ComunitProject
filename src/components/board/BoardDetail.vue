@@ -48,7 +48,7 @@
           </v-row>
           내용<br/>
 
-          <div style="height:300px;" v-html="getBoardDetailObserver.body" class="pt-4">
+          <div class="pt-4" v-html="getBoardDetailObserver.body">
 
           </div>
         </v-card-text>

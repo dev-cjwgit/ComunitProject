@@ -15,7 +15,7 @@ Vue.filter("timestampToDate", val => {
 
     // 현재 Date 혹은 DateTime 데이터를 javaScript date 타입화
     var js_date = new Date(val);
-
+    js_date.setHours(js_date.getHours() - 9);
     // 연도, 월, 일 추출
     var year = js_date.getFullYear();
     var month = js_date.getMonth() + 1;
@@ -25,6 +25,12 @@ Vue.filter("timestampToDate", val => {
     var min = js_date.getMinutes();
     var sec = js_date.getSeconds();
 
+    var js_date1 = new Date();
+    var nyear = js_date1.getFullYear();
+    var nmonth = js_date1.getMonth() + 1;
+    var nday = js_date1.getDate();
+
+
     // 월, 일의 경우 한자리 수 값이 있기 때문에 공백에 0 처리
     if (month < 10) {
         month = '0' + month;
@@ -33,10 +39,26 @@ Vue.filter("timestampToDate", val => {
     if (day < 10) {
         day = '0' + day;
     }
+    if (nmonth < 10) {
+        nmonth = '0' + nmonth;
+    }
 
-    // 최종 포맷 (ex - '2021-10-08')
-    return year + '-' + month + '-' + day + " " + hour + ":" + min + ":" + sec;
-})
+    if (nday < 10) {
+        nday = '0' + nday;
+    }
+
+    console.log(nday === day);
+    console.log(nday + " " + day);
+
+
+    if (nyear === year && nmonth === month && nday === day) {
+        // 최종 포맷 (ex - '2021-10-08')
+        return hour + ":" + min + ":" + sec;
+    } else {
+        return year + '-' + month + '-' + day + " " + hour + ":" + min + ":" + sec;
+
+    }
+});
 
 new Vue({
     vuetify,
