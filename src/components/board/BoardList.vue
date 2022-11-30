@@ -36,6 +36,10 @@
             <th class="text-center" style="width: 10%;">
               조회수
             </th>
+            <th class="text-center" style="width: 10%;">
+              댓글
+            </th>
+
           </tr>
           </thead>
           <tbody>
@@ -45,10 +49,11 @@
               @dblclick="_goDetail(item.uid)"
           >
             <td class="text-center">{{ item.uid }}</td>
-            <td class="text-center">{{ item.title }} &nbsp; &nbsp; <b>({{ item.comment_count }})</b></td>
+            <td class="text-center">{{ item.title }}</td>
             <td class="text-center">{{ item.nickname }}</td>
             <td class="text-center">{{ item.sdate | timestampToDate }} </td>
             <td class="text-center">{{ item.view_count === null ? 0 : item.view_count | makeComma }}</td>
+            <td class="text-center">{{ item.comment_count === null ? 0 : item.comment_count | makeComma }}</td>
 
           </tr>
           </tbody>

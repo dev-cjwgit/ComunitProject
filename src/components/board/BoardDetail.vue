@@ -16,7 +16,6 @@
     </v-row>
     <v-card elevation="10" outlined width="100%" class="mx-auto">
       <v-card-title>
-        <span class="mr-2">Detail</span>
         <v-card-text>
           <v-row>
             <v-col>
@@ -54,15 +53,20 @@
         </v-card-text>
       </v-card-title>
     </v-card>
+    <v-card-text elevation="10" outlined width="100%" class="mt-4">
+      <board-detail-comment :board_uid="board_uid"/>
+    </v-card-text>
   </v-container>
+
 </template>
 
 <script>
 import {mapActions, mapGetters} from "vuex";
+import BoardDetailComment from "@/components/board/BoardDetailComment";
 
 export default {
   name: "BoardDetail",
-  components: {},
+  components: {BoardDetailComment,},
   data() {
     return {
       board_uid: 0,

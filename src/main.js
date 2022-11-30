@@ -47,10 +47,6 @@ Vue.filter("timestampToDate", val => {
         nday = '0' + nday;
     }
 
-    console.log(nday === day);
-    console.log(nday + " " + day);
-
-
     if (nyear === year && nmonth === month && nday === day) {
         // 최종 포맷 (ex - '2021-10-08')
         return hour + ":" + min + ":" + sec;

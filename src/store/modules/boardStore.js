@@ -1,6 +1,6 @@
 import router from "@/router";
 import store from "@/store";
-import {createBoard, getBoardKindList, getBoardList, getBoardPages, getBoardDetail} from "@/api/board"
+import {createBoard, getBoardKindList, getBoardList, getBoardPages, getBoardDetail, getCommentList} from "@/api/board"
 
 async function autoCheckTokenWithParams(func, params) {
     let result = false;
@@ -55,10 +55,14 @@ const boardStore = {
             "sdate": 1669823966000,
             "udate": 1669823966000,
             "view_count": 0,
-
-        }
+        },
+        board_comment_list: [],
     },
     getters: {
+        getBoardCommentListObserver(state) {
+            return state.board_comment_list;
+        },
+
         getBoardDetailObserver(state) {
             return state.board_detail;
         },
@@ -84,6 +88,9 @@ const boardStore = {
         }
     },
     mutations: {
+        SET_COMMENT_LIST(state, payload){
+          state.board_comment_list = payload;
+        },
         SET_BOARD_DETAIL(state, payload) {
             state.board_detail = payload;
         },
@@ -110,48 +117,52 @@ const boardStore = {
 
     },
     actions: {
+        getCommentList({commit}, params) {
+            autoCheckTokenWithParams(getCommentList, params).then((data) => {
+                if (data.result === true) {
+                    commit("SET_COMMENT_LIST", data.data);
+                }
+            })
+        },
+
         getBoardDetail({commit}, params) {
             autoCheckTokenWithParams(getBoardDetail, params).then((data) => {
                 commit("SET_BOARD_DETAIL", data.data);
             })
         },
 
-        async getBoardKindList({commit}) {
-            let data = await autoCheckTokenWithParams(getBoardKindList, null);
-            if (data !== true) {
+        getBoardKindList({commit}) {
+            autoCheckTokenWithParams(getBoardKindList, null).then((data) => {
                 if (data.result === true) {
                     commit("SET_BOARD_KIND", data.data);
                 }
-            }
+            });
         },
 
-        async getBoardList({commit, state}, params) {
-            let data = await autoCheckTokenWithParams(getBoardList, params);
-            if (data !== true) {
+        getBoardList({commit, state}, params) {
+            autoCheckTokenWithParams(getBoardList, params).then((data) => {
                 if (data.result === true) {
                     commit("SET_BOARD_LIST", data.data);
                 }
-            }
+            });
 
             // TODO: range 범위 설정
-            let response = await autoCheckTokenWithParams(getBoardPages, {
+            let response = autoCheckTokenWithParams(getBoardPages, {
                 board_kind_uid: state.board_kind_uid,
                 page_range: 10,
-            });
-            if (response !== true) {
+            }).then((data) => {
                 if (data.result === true) {
                     commit("SET_MAX_PAGE", response.data);
                 }
-            }
+            });
         },
 
-        async getBoardPages({commit}, params) {
-            let data = await autoCheckTokenWithParams(getBoardPages, params);
-            if (data !== true) {
+        getBoardPages({commit}, params) {
+            autoCheckTokenWithParams(getBoardPages, params).then((data) => {
                 if (data.result === true) {
                     commit("SET_MAX_PAGE", data.data);
                 }
-            }
+            })
         },
 
         async createBoard({commit, state}, params) {
