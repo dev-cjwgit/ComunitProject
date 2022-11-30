@@ -1,6 +1,6 @@
 import router from "@/router";
 import store from "@/store";
-import {getBoardKindList, getBoardList, getBoardPages} from "@/api/board"
+import {createBoard, getBoardKindList, getBoardList, getBoardPages} from "@/api/board"
 
 async function autoCheckTokenWithParams(func, params) {
     let result = false;
@@ -62,6 +62,9 @@ const boardStore = {
             return state.board_kind_uid;
         },
 
+        getPrevPageObserver(state) {
+            return state.prev_page;
+        }
     },
     mutations: {
         SET_BOARD_KIND(state, payload) {
@@ -123,7 +126,18 @@ const boardStore = {
                     commit("SET_MAX_PAGE", data.data);
                 }
             }
-        }
+        },
+
+        async createBoard({commit, state}, params) {
+            let result = false;
+            let data = await autoCheckTokenWithParams(createBoard, params);
+            if (data !== true) {
+                if (data.result === true) {
+                    result = true;
+                }
+            }
+            return result;
+        },
     },
 
 
