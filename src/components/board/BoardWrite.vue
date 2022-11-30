@@ -36,14 +36,13 @@
 // Basic Use - Covers most scenarios
 // https://github.com/davidroyer/vue2-editor
 import {VueEditor} from "vue2-editor";
-import {mapActions, mapGetters, mapState} from "vuex";
-
+import {mapActions, mapGetters} from "vuex";
 
 export default {
 
   name: "BoardWrite",
   components: {
-    VueEditor
+    VueEditor,
   },
   data() {
     return {

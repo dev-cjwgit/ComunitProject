@@ -69,6 +69,12 @@ const routes = [
                 beforeEnter: authUser,
                 component: () => import("@/components/board/BoardWrite")
             },
+            {
+                path: 'detail/:board_uid',
+                name: 'boarddetail',
+                beforeEnter: authUser,
+                component: () => import("@/components/board/BoardDetail")
+            },
         ],
     },
     {

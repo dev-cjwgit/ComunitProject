@@ -358,6 +358,28 @@
     "estree-walker" "^2.0.1"
     "picomatch" "^2.2.2"
 
+"@toast-ui/editor@^2.5.4":
+  "integrity" "sha512-XsuYlPQxhec9dHQREFAigjE4enHSuGMF7D0YQ6wW7phmusvAu0FnJfZUPjJBoU/GKz7WP5U6fKU9/P+8j65D8A=="
+  "resolved" "https://registry.npmjs.org/@toast-ui/editor/-/editor-2.5.4.tgz"
+  "version" "2.5.4"
+  dependencies:
+    "@types/codemirror" "0.0.71"
+    "codemirror" "^5.48.4"
+
+"@toast-ui/vue-editor@^2.5.1":
+  "integrity" "sha512-+1d/ROsKiv0M+hV7cC1E1kOlRWawsghug3ARIJEJR0TAUBhQm5qwaKuuyVclYPjuRpOTVZNppKMTGyNKuTAVug=="
+  "resolved" "https://registry.npmjs.org/@toast-ui/vue-editor/-/vue-editor-2.5.4.tgz"
+  "version" "2.5.4"
+  dependencies:
+    "@toast-ui/editor" "^2.5.4"
+
+"@types/codemirror@0.0.71":
+  "integrity" "sha512-b2oEEnno1LIGKMR7uBEsr40al1UijF1HEpRn0+Yf1xOLl24iQgB7DBpZVMM7y54G5wCNoclDrRO65E6KHPNO2w=="
+  "resolved" "https://registry.npmjs.org/@types/codemirror/-/codemirror-0.0.71.tgz"
+  "version" "0.0.71"
+  dependencies:
+    "@types/tern" "*"
+
 "@types/eslint-scope@^3.7.3":
   "integrity" "sha512-9K4zoImiZc3HlIp6AVUDE4CWYx22a+lhSZMYNpbjW04+YF0KWj4pJXnEMjdnFTiQibFFmElcsasJXDbdI/EPhA=="
   "resolved" "https://registry.npmjs.org/@types/eslint-scope/-/eslint-scope-3.7.4.tgz"
@@ -388,6 +410,13 @@
   "integrity" "sha512-CRpX21/kGdzjOpFsZSkcrXMGIBWMGNIHXXBVFSH+ggkftxg+XYP20TESbh+zFvFj3EQOl5byk0HTRn1IL6hbqg=="
   "resolved" "https://registry.npmjs.org/@types/node/-/node-18.11.9.tgz"
   "version" "18.11.9"
+
+"@types/tern@*":
+  "integrity" "sha512-JAUw1iXGO1qaWwEOzxTKJZ/5JxVeON9kvGZ/osgZaJImBnyjyn0cjovPsf6FNLmyGY8Vw9DoXZCMlfMkMwHRWg=="
+  "resolved" "https://registry.npmjs.org/@types/tern/-/tern-0.23.4.tgz"
+  "version" "0.23.4"
+  dependencies:
+    "@types/estree" "*"
 
 "@types/throttle-debounce@^2.1.0":
   "integrity" "sha512-5eQEtSCoESnh2FsiLTxE121IiE60hnMqcb435fShf4bpLRjEu1Eoekht23y6zXS9Ts3l+Szu3TARnTsA0GkOkQ=="
@@ -782,6 +811,11 @@
   "integrity" "sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w=="
   "resolved" "https://registry.npmjs.org/clone/-/clone-2.1.2.tgz"
   "version" "2.1.2"
+
+"codemirror@^5.48.4":
+  "integrity" "sha512-IXAG5wlhbgcTJ6rZZcmi4+sjWIbJqIGfeg3tNa3yX84Jb3T4huS5qzQAo/cUisc1l3bI47WZodpyf7cYcocDKg=="
+  "resolved" "https://registry.npmjs.org/codemirror/-/codemirror-5.65.10.tgz"
+  "version" "5.65.10"
 
 "color-convert@^1.9.0":
   "integrity" "sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg=="
@@ -1808,7 +1842,7 @@
   "resolved" "https://registry.npmjs.org/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz"
   "version" "1.9.1"
 
-"vue@^2.0.0", "vue@^2.6.14", "vue@^2.6.4", "vue@2 || 3":
+"vue@^2.0.0", "vue@^2.5.0", "vue@^2.6.14", "vue@^2.6.4", "vue@2 || 3":
   "integrity" "sha512-x2284lgYvjOMj3Za7kqzRcUSxBboHqtgRE2zlos1qWaOye5yUmHn42LB1250NJBLRwEcdrB0JRwyPTEPhfQjiQ=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-2.6.14.tgz"
   "version" "2.6.14"

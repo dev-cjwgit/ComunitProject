@@ -44,8 +44,24 @@ const boardStore = {
         board_kind_uid: 1,
         board_kind: [],
         board_list: [],
+        board_detail: {
+            "uid": 0,
+            "board_kind_uid": 0,
+            "user_uid": 0,
+            "nickname": "작성자",
+            "comment_count": 0,
+            "title": "제목",
+            "body": "<p>내용</p>",
+            "sdate": 1669823966000,
+            "udate": 1669823966000
+
+        }
     },
     getters: {
+        getBoardDetailObserver(state) {
+            return state.board_detail;
+        },
+
         getMaxPageObserver(state) {
             return state.max_page;
         },

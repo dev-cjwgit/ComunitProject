@@ -39,7 +39,7 @@
           <tr
               v-for="item in getBoardListObserver"
               :key="item.uid"
-              @click="_goDetail(item.uid)"
+              @dblclick="_goDetail(item.uid)"
           >
             <td class="text-center">{{ item.uid }}</td>
             <td class="text-center">{{ item.title }} &nbsp; &nbsp; <b>({{ item.comment_count }})</b></td>
@@ -62,9 +62,10 @@
 import {mapGetters} from "vuex";
 import BoardSearch from "@/components/board/BoardSearch";
 import BoardPagination from "@/components/board/BoardPagination";
+
 export default {
   name: "BoardList",
-  components:{
+  components: {
     BoardSearch,
     BoardPagination
   },
@@ -73,7 +74,9 @@ export default {
   },
   methods: {
     _goDetail(board_uid) {
-      console.log(board_uid);
+      this.$router.push({
+        name: 'boarddetail', params: {board_uid: board_uid}
+      });
     },
     _goWrite() {
       this.$router.push({name: 'boardwrite'});
