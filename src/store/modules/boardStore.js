@@ -99,6 +99,7 @@ const boardStore = {
                 }
             }
 
+            // TODO: range 범위 설정
             let response = await autoCheckTokenWithParams(getBoardPages, {
                 board_kind_uid: state.board_kind_uid,
                 page_range: 10,
