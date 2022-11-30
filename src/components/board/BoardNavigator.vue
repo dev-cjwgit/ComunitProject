@@ -28,18 +28,20 @@ export default {
 
   methods: {
     ...mapActions("boardStore", ["getBoardKindList", "getBoardList"]),
-    ...mapMutations("boardStore", ["SET_BOARD_KIND_UID"]),
+    ...mapMutations("boardStore", ["SET_BOARD_KIND_UID", "SET_PREV_PAGE"]),
 
     // TODO: range 개수
     _getBoardList(board_kind_uid) {
+      this.$router.push({name: 'board'})
       this.getBoardList({
         board_kind_uid: board_kind_uid,
         page: 1,
         range: 10,
       });
       this.SET_BOARD_KIND_UID(board_kind_uid);
+      this.SET_PREV_PAGE(1);
       // 게시판이 바뀌면 페이지를 1페이지로 돌려놔야 함.
-      this.$emit("clearPage");
+
     }
   },
 

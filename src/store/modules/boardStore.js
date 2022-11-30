@@ -39,8 +39,9 @@ async function autoCheckTokenWithParams(func, params) {
 const boardStore = {
     namespaced: true,
     state: {
+        prev_page: 1,
         max_page: 10,
-        board_kind_uid: 0,
+        board_kind_uid: 1,
         board_kind: [],
         board_list: [],
     },
@@ -79,6 +80,10 @@ const boardStore = {
             state.board_kind_uid = payload;
         },
 
+        SET_PREV_PAGE(state, payload) {
+            console.log("페이로드 " + payload);
+            state.prev_page = payload;
+        }
 
     },
     actions: {

@@ -4,30 +4,27 @@
         v-model="prev_page"
         :length="getMaxPageObserver"
         :total-visible="10"
-        @input="onChagned"
+        @input="_onChagned"
     ></v-pagination>
   </div>
 </template>
 
 <script>
-import {mapActions, mapGetters} from "vuex";
+import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
 
 export default {
   name: 'BoardPagination',
 
   data() {
-    return {
-      prev_page: 1,
-    }
+    return {}
   },
   methods: {
     ...mapActions("boardStore", ["getBoardPages", "getBoardList"]),
-    _clear() {
-      this.prev_page = 1;
-    },
+    ...mapMutations("boardStore", ["SET_PREV_PAGE"]),
 
     // TODO: range 개수 template 에서도 있음.
-    onChagned() {
+    _onChagned() {
+      console.log("호출 리스트");
       let params = {
         board_kind_uid: this.getBoardKindUidObserver,
         page: this.prev_page,
@@ -38,7 +35,16 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("boardStore", ["getMaxPageObserver", "getBoardKindUidObserver"]),
+    ...mapGetters("boardStore", ["getMaxPageObserver", "getBoardKindUidObserver", "getBoardKindUidObserver"]),
+
+    prev_page: {
+      set(value) {
+        this.SET_PREV_PAGE(value);
+      },
+      get() {
+        return this.$store.state.boardStore.prev_page;
+      },
+    }
   },
 
   created() {

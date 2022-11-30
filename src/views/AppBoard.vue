@@ -1,9 +1,7 @@
 <template>
   <v-container>
-    <board-navigator @clearPage="clearPage"/>
-    <board-search/>
-    <board-list/>
-    <board-pagination ref="pagination"/>
+    <board-navigator/>
+    <router-view/>
   </v-container>
 </template>
 
@@ -17,7 +15,9 @@ import {mapActions} from "vuex";
 export default {
   name: "AppBoard",
   data() {
-    return {}
+    return {
+      board_kind_uid: 0,
+    }
   },
   components: {
     BoardSearch,
@@ -27,17 +27,16 @@ export default {
   },
   methods: {
     ...mapActions("boardStore", ["getBoardList"]),
-    clearPage() {
-      // 자식의 메소드를 호출하여
-      // 게시판이 바뀌면 페이지를 1로 바꿔줌.
-      this.$refs.pagination._clear();
-    },
   },
 
   created() {
+    this.board_kind_uid = this.$route.params.board_kind_uid;
+    if (this.board_kind_uid === undefined)
+      this.board_kind_uid = 1;
+
     // TODO: range 범위
     this.getBoardList({
-      board_kind_uid: 1,
+      board_kind_uid: this.board_kind_uid,
       page: 1,
       range: 10,
     });

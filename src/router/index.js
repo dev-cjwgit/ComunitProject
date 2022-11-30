@@ -6,6 +6,14 @@ import store from "@/store";
 
 Vue.use(VueRouter)
 
+// NavigationDuplicated 방지
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => {
+        if (err.name !== 'NavigationDuplicated') throw err;
+    });
+};
+
 const authUser = async (to, from, next) => {
     let token = sessionStorage.getItem("access-token");
     if (token) {
@@ -44,11 +52,32 @@ const routes = [
         component: () => import("@/components/user/UserSignup")
     },
     {
-        path: `/board`,
+        path: '/board',
         name: 'board',
+        redirect: '/board/list',
+        beforeEnter: authUser,
+        component: () => import("@/views/AppBoard"),
+        children: [
+            {
+                path: 'list',
+                name: 'boardlist',
+                component: () => import("@/components/board/BoardList")
+            },
+            {
+                path: 'write',
+                name: 'boardwrite',
+                beforeEnter: authUser,
+                component: () => import("@/components/board/BoardWrite")
+            },
+        ],
+    },
+    {
+        path: '/board/:board_kind_uid',
+        name: 'boardkinduid',
         beforeEnter: authUser,
         component: () => import("@/views/AppBoard")
     },
+
 ]
 
 const router = new VueRouter({

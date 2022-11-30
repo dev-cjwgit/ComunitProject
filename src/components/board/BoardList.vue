@@ -1,8 +1,23 @@
 <template>
   <v-container>
+    <board-search/>
 
     <v-col cols="12">
-      <v-simple-table>
+      <v-row>
+        <v-col class="text-right mb-4" cols="12">
+          <v-btn
+              class="text-capitalize"
+              exact
+              target="_black"
+              exact-active-class="accent--text"
+              color="primary"
+              @click="_goWrite"
+              text>
+            글쓰기
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-simple-table height="550px">
         <template v-slot:default>
           <thead>
           <tr>
@@ -36,6 +51,8 @@
         </template>
       </v-simple-table>
     </v-col>
+
+    <board-pagination ref="pagination"/>
   </v-container>
 </template>
 
@@ -43,15 +60,23 @@
 
 
 import {mapGetters} from "vuex";
-
+import BoardSearch from "@/components/board/BoardSearch";
+import BoardPagination from "@/components/board/BoardPagination";
 export default {
   name: "BoardList",
+  components:{
+    BoardSearch,
+    BoardPagination
+  },
   data() {
     return {};
   },
   methods: {
     _goDetail(board_uid) {
       console.log(board_uid);
+    },
+    _goWrite() {
+      this.$router.push({name: 'boardwrite'});
     },
   },
   computed: {
