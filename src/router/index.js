@@ -8,16 +8,17 @@ Vue.use(VueRouter)
 
 const authUser = async (to, from, next) => {
     let token = sessionStorage.getItem("access-token");
-    let isLogin = store.getters["userStore/getisLoginObserver"];
     if (token) {
-        await store.dispatch("userStore/authUser")
-    }
-
-    if (!isLogin) {
-        alert("로그인이 필요합니다.");
-        router.push({name: 'login'});
+        let result = await store.dispatch("userStore/authUser")
+        if (result === true) {
+            next();
+        } else {
+            alert("로그인이 필요합니다.");
+            await router.push({name: 'login'});
+        }
     } else {
-        next();
+        alert("로그인이 필요합니다.");
+        await router.push({name: 'login'});
     }
 }
 
@@ -45,6 +46,7 @@ const routes = [
     {
         path: `/board`,
         name: 'board',
+        beforeEnter: authUser,
         component: () => import("@/views/AppBoard")
     },
 ]

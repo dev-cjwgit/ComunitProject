@@ -31,4 +31,9 @@ async function signupRules(params, success, fail) {
     await api.get(`/axios/signup/rules/${params.keyword}/${params.word}`).then(success).catch(fail);
 }
 
-export {login, tokenRegeneration, testFunc, signup, checkEmail, signupRules};
+async function authUser(params, success, fail) {
+    api_headers.defaults.headers["Authorization"] = "Bearer " + sessionStorage.getItem("access-token");
+    await api_headers.get(`/user/auth`).then(success).catch(fail);
+}
+
+export {login, tokenRegeneration, testFunc, signup, checkEmail, signupRules, authUser};

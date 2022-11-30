@@ -1,6 +1,6 @@
 import router from "@/router";
 
-import {login, tokenRegeneration, testFunc, signup, checkEmail, signupRules} from "@/api/user";
+import {login, tokenRegeneration, testFunc, signup, checkEmail, signupRules, authUser} from "@/api/user";
 import store from "@/store";
 
 async function autoCheckTokenWithParams(func, params) {
@@ -24,10 +24,14 @@ async function autoCheckTokenWithParams(func, params) {
                         if (error.response.status === 401) {
                             console.log("로그인 만료");
                             result = false;
+                            store.commit("userStore/SET_IS_LOGIN", false);
+                            store.commit("userStore/SET_USER_UID", -1);
                         }
                     }
                 );
             } else {
+                store.commit("userStore/SET_IS_LOGIN", false);
+                store.commit("userStore/SET_USER_UID", -1);
                 result = error.response.data;
             }
         });
@@ -142,6 +146,18 @@ const userStore = {
                     // console.log(data.result);
                     result = data.result;
                 });
+            return result;
+        },
+
+        async authUser({commit}) {
+            let result = false;
+            let data = await autoCheckTokenWithParams(authUser, null);
+            if (data !== true) {
+                if (data.result === true) {
+                    result = true;
+                }
+            }
+            console.log(result);
             return result;
         }
     },
