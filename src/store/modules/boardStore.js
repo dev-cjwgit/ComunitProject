@@ -1,6 +1,6 @@
 import router from "@/router";
 import store from "@/store";
-import {createBoard, getBoardKindList, getBoardList, getBoardPages} from "@/api/board"
+import {createBoard, getBoardKindList, getBoardList, getBoardPages, getBoardDetail} from "@/api/board"
 
 async function autoCheckTokenWithParams(func, params) {
     let result = false;
@@ -31,7 +31,7 @@ async function autoCheckTokenWithParams(func, params) {
                 result = error.response.data;
             }
         });
-    // console.log("값 리턴");
+    // console.log("값 리턴 :( " + result + " )");
     return result;
 }
 
@@ -53,7 +53,8 @@ const boardStore = {
             "title": "제목",
             "body": "<p>내용</p>",
             "sdate": 1669823966000,
-            "udate": 1669823966000
+            "udate": 1669823966000,
+            "view_count": 0,
 
         }
     },
@@ -83,6 +84,9 @@ const boardStore = {
         }
     },
     mutations: {
+        SET_BOARD_DETAIL(state, payload) {
+            state.board_detail = payload;
+        },
         SET_BOARD_KIND(state, payload) {
             state.board_kind = payload;
         },
@@ -106,6 +110,12 @@ const boardStore = {
 
     },
     actions: {
+        getBoardDetail({commit}, params) {
+            autoCheckTokenWithParams(getBoardDetail, params).then((data) => {
+                commit("SET_BOARD_DETAIL", data.data);
+            })
+        },
+
         async getBoardKindList({commit}) {
             let data = await autoCheckTokenWithParams(getBoardKindList, null);
             if (data !== true) {

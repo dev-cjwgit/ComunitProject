@@ -43,10 +43,10 @@
                   dense/>
             </v-col>
             <v-col>
-              <v-text-field label="View" readonly dense/>
+              <v-text-field label="조회수" :value="getBoardDetailObserver.view_count | makeComma" readonly dense/>
             </v-col>
           </v-row>
-          Content<br/>
+          내용<br/>
 
           <div style="height:300px;" v-html="getBoardDetailObserver.body" class="pt-4">
 
@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "BoardDetail",
@@ -70,6 +70,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions("boardStore", ["getBoardDetail"]),
     _back() {
       this.$router.go(-1);
     },
@@ -81,6 +82,8 @@ export default {
 
   created() {
     this.board_uid = this.$route.params.board_uid;
+    this.getBoardDetail(this.board_uid);
+
   }
 }
 </script>

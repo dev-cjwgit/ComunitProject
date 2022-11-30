@@ -33,6 +33,9 @@
             <th class="text-center" style="width: 10%;">
               게시일
             </th>
+            <th class="text-center" style="width: 10%;">
+              조회수
+            </th>
           </tr>
           </thead>
           <tbody>
@@ -45,6 +48,7 @@
             <td class="text-center">{{ item.title }} &nbsp; &nbsp; <b>({{ item.comment_count }})</b></td>
             <td class="text-center">{{ item.nickname }}</td>
             <td class="text-center">{{ item.sdate | timestampToDate }}</td>
+            <td class="text-center">{{ item.view_count === null ? 0 : item.view_count | makeComma }}</td>
 
           </tr>
           </tbody>
