@@ -1,6 +1,5 @@
 <template>
   <div>
-    댓글 레이아웃 입니다.
     <v-row justify="center">
       <v-col cols="5">
         <v-text-field label="댓글을 입력해주세요." v-model="body" type="text" @keyup.enter="_createComment" flat dense solo outlined/>

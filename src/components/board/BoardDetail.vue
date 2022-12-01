@@ -54,6 +54,9 @@
       </v-card-title>
     </v-card>
     <v-card-text elevation="10" outlined width="100%" class="mt-4">
+      <div>
+        댓글 ({{getBoardDetailObserver.comment_count}})
+      </div>
       <board-detail-comment :board_uid="board_uid"/>
     </v-card-text>
   </v-container>
