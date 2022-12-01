@@ -1,6 +1,14 @@
 import router from "@/router";
 import store from "@/store";
-import {createBoard, getBoardKindList, getBoardList, getBoardPages, getBoardDetail, getCommentList} from "@/api/board"
+import {
+    createBoard,
+    getBoardKindList,
+    getBoardList,
+    getBoardPages,
+    getBoardDetail,
+    getCommentList,
+    getCommentPages
+} from "@/api/board"
 
 async function autoCheckTokenWithParams(func, params) {
     let result = false;
@@ -41,6 +49,7 @@ const boardStore = {
     state: {
         prev_page: 1,
         max_page: 10,
+        comment_max_page: 10,
         board_kind_uid: 1,
         board_kind: [],
         board_list: [],
@@ -59,6 +68,9 @@ const boardStore = {
         board_comment_list: [],
     },
     getters: {
+        getCommentMaxPageObserver(state) {
+            return state.comment_max_page;
+        },
         getBoardCommentListObserver(state) {
             return state.board_comment_list;
         },
@@ -88,8 +100,8 @@ const boardStore = {
         }
     },
     mutations: {
-        SET_COMMENT_LIST(state, payload){
-          state.board_comment_list = payload;
+        SET_COMMENT_LIST(state, payload) {
+            state.board_comment_list = payload;
         },
         SET_BOARD_DETAIL(state, payload) {
             state.board_detail = payload;
@@ -111,12 +123,20 @@ const boardStore = {
         },
 
         SET_PREV_PAGE(state, payload) {
-            console.log("페이로드 " + payload);
             state.prev_page = payload;
+        },
+        SET_COMMENT_MAX_PAGE(state, payload) {
+            state.comment_max_page = payload;
         }
 
     },
     actions: {
+        getCommentPages({commit}, params) {
+            autoCheckTokenWithParams(getCommentPages, params).then((data) => {
+                commit("SET_COMMENT_MAX_PAGE", data.data);
+            });
+        },
+
         getCommentList({commit}, params) {
             autoCheckTokenWithParams(getCommentList, params).then((data) => {
                 if (data.result === true) {
