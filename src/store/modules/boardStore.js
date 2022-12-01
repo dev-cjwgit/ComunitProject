@@ -7,7 +7,8 @@ import {
     getBoardPages,
     getBoardDetail,
     getCommentList,
-    getCommentPages
+    getCommentPages,
+    createComment
 } from "@/api/board"
 
 async function autoCheckTokenWithParams(func, params) {
@@ -131,6 +132,16 @@ const boardStore = {
 
     },
     actions: {
+        async createComment({commit}, params) {
+            let result = false;
+            let data = await autoCheckTokenWithParams(createComment, params);
+            if (data !== true) {
+                if (data.result === true) {
+                    result = true;
+                }
+            }
+            return result;
+        },
         getCommentPages({commit}, params) {
             autoCheckTokenWithParams(getCommentPages, params).then((data) => {
                 commit("SET_COMMENT_MAX_PAGE", data.data);

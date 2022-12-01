@@ -37,4 +37,18 @@ async function getCommentPages(params, success, fail) {
     await api_headers.get(`/board/comment/page/${params.board_uid}/${params.range}`).then(success).catch(fail);
 }
 
-export {getBoardKindList, getBoardList, getBoardPages, createBoard, getBoardDetail, getCommentList, getCommentPages};
+async function createComment(params, success, fail) {
+    api_headers.defaults.headers["Authorization"] = "Bearer " + sessionStorage.getItem("access-token");
+    await api_headers.post(`/board/comment`, JSON.stringify(params)).then(success).catch(fail);
+}
+
+export {
+    getBoardKindList,
+    getBoardList,
+    getBoardPages,
+    createBoard,
+    getBoardDetail,
+    getCommentList,
+    getCommentPages,
+    createComment,
+};
