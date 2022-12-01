@@ -151,7 +151,7 @@ const userStore = {
                     result = true;
                 }
             }
-            console.log(result);
+            // console.log(result);
             return result;
         }
     },

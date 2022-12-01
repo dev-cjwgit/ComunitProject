@@ -29,6 +29,12 @@
             </v-btn>
 
             <v-btn
+                @click="_findPW"
+                color="primary">
+              비밀번호찾기
+            </v-btn>
+
+            <v-btn
                 @click="_userLogin"
                 color="primary">
               Login
@@ -76,6 +82,10 @@ export default {
 
     _signup() {
       this.$router.push({name: "signup"});
+    },
+
+    _findPW() {
+
     }
   },
   computed: {},
