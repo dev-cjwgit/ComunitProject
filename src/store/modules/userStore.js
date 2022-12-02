@@ -12,13 +12,13 @@ import {
     setMypage
 } from "@/api/user";
 import store from "@/store";
-import {createComment} from "@/api/board";
 
 async function autoCheckTokenWithParams(func, params) {
     let result = false;
 
     await func(params,
         ({data}) => {
+            store.commit("userStore/SET_IS_LOGIN", true);
             result = data;
         },
         async (error) => {
