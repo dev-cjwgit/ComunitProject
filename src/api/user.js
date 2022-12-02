@@ -36,4 +36,14 @@ async function authUser(params, success, fail) {
     await api_headers.get(`/user/auth`).then(success).catch(fail);
 }
 
-export {login, tokenRegeneration, testFunc, signup, checkEmail, signupRules, authUser};
+async function getMypage(params, success, fail) {
+    api_headers.defaults.headers["Authorization"] = "Bearer " + sessionStorage.getItem("access-token");
+    await api_headers.get(`/user/mypage`).then(success).catch(fail);
+}
+
+async function setMypage(params, success, fail) {
+    api_headers.defaults.headers["Authorization"] = "Bearer " + sessionStorage.getItem("access-token");
+    await api_headers.post(`/user/mypage`, JSON.stringify(params)).then(success).catch(fail);
+}
+
+export {login, tokenRegeneration, testFunc, signup, checkEmail, signupRules, authUser, getMypage, setMypage};

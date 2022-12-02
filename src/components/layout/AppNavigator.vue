@@ -12,10 +12,13 @@
         <v-list-item v-if="!getisLoginObserver" :to="{name: 'login'}">
           Login
         </v-list-item>
-        <v-list-item v-else @click="_logout">
-          Logout
-        </v-list-item>
+        <div v-else>
+          <v-list-item :to="{name:'mypage'}">mypage</v-list-item>
 
+          <v-list-item @click="_logout">
+            Logout
+          </v-list-item>
+        </div>
         <v-list-item
             v-for="(item, i) in barItems"
             :key="i"
@@ -77,10 +80,14 @@
                    color="primary" target="_black" :to="{name: 'login'}" class="ml-3 text-capitalize">
               Login
             </v-btn>
-            <v-btn v-else
-                   color="primary" target="_black" @click="_logout" class="ml-3 text-capitalize">
-              Logout
-            </v-btn>
+            <div v-else>
+              <router-link :to="{name:'mypage'}">{{ getUserNameObserver }}</router-link>
+              님
+              <v-btn
+                  color="primary" target="_black" @click="_logout" class="ml-3 text-capitalize">
+                Logout
+              </v-btn>
+            </div>
           </v-col>
         </v-row>
       </v-container>
@@ -115,7 +122,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("userStore", ["getisLoginObserver"]),
+    ...mapGetters("userStore", ["getisLoginObserver", "getUserNameObserver"]),
   },
   created() {
   },

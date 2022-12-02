@@ -52,6 +52,11 @@ const routes = [
         component: () => import("@/components/user/UserSignup")
     },
     {
+      path: '/mypage',
+      name: 'mypage',
+      component: () => import("@/components/user/MyPage")
+    },
+    {
         path: '/board',
         name: 'board',
         redirect: '/board/list',

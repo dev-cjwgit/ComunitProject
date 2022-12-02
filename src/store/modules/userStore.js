@@ -1,7 +1,18 @@
 import router from "@/router";
 
-import {login, tokenRegeneration, testFunc, signup, checkEmail, signupRules, authUser} from "@/api/user";
+import {
+    login,
+    tokenRegeneration,
+    testFunc,
+    signup,
+    checkEmail,
+    signupRules,
+    authUser,
+    getMypage,
+    setMypage
+} from "@/api/user";
 import store from "@/store";
+import {createComment} from "@/api/board";
 
 async function autoCheckTokenWithParams(func, params) {
     let result = false;
@@ -40,6 +51,7 @@ const userStore = {
     state: {
         isLogin: false,
         uid: 0,
+        name: '',
     },
     getters: {
         getisLoginObserver(state) {
@@ -48,8 +60,32 @@ const userStore = {
         getUserUidObserver(state) {
             return state.uid;
         },
+        getUserNameObserver(state) {
+            return state.name;
+        }
     },
     actions: {
+        async setMypage({commit}, params) {
+            let result = false;
+            let data = await autoCheckTokenWithParams(setMypage, params);
+            if (data !== true) {
+                if (data.result === true) {
+                    result = true;
+                }
+            }
+            return result;
+        },
+        async getMypage({commit}) {
+            let result = false;
+
+            await getMypage(null, ({data}) => {
+                if (data.result === true) {
+                    result = data;
+                }
+            });
+
+            return result;
+        },
         async userSignup({commit}, user) {
             let result = false;
             let data = await autoCheckTokenWithParams(signup, user);
@@ -73,6 +109,7 @@ const userStore = {
                     result = true;
                     commit("SET_IS_LOGIN", true);
                     commit("SET_USER_UID", data.uid);
+                    commit("SET_USER_NAME", data.name);
                     sessionStorage.setItem("access-token", data["access-token"]);
                     sessionStorage.setItem("refresh-token", data["refresh-token"]);
                     await alert(data.msg);
@@ -157,6 +194,9 @@ const userStore = {
     },
 
     mutations: {
+        SET_USER_NAME(state, payload) {
+            state.name = payload;
+        },
         SET_IS_LOGIN(state, payload) {
             state.isLogin = payload;
         },
