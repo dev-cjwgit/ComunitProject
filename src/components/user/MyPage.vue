@@ -14,7 +14,7 @@
                 v-model="user.id"
                 :counter="20"
                 label="아이디"
-                disabled/>
+                readonly/>
 
             <v-text-field
                 v-model="user.pw"
@@ -46,13 +46,13 @@
                 :counter="30"
                 label="이메일"
                 type="email"
-                disabled/>
+                readonly/>
 
             <v-text-field
                 v-model="user.name"
                 :counter="30"
                 label="이름"
-                disabled/>
+                readonly/>
 
             <v-text-field
                 v-model="user.nickname"

@@ -17,6 +17,28 @@
     <v-card elevation="10" outlined width="100%" class="mx-auto">
       <v-card-title>
         <v-card-text>
+          <v-row v-if="getBoardDetailObserver.user_uid === getUserUidObserver" justify="center">
+            <v-btn
+                class="text-capitalize"
+                exact
+                target="_black"
+                exact-active-class="accent--text"
+                color="primary"
+                @click="_updateBoard"
+                text>
+              수정하기
+            </v-btn>
+            <v-btn
+                class="text-capitalize"
+                exact
+                target="_black"
+                exact-active-class="accent--text"
+                color="primary"
+                @click="_deleteBoard"
+                text>
+              삭제하기
+            </v-btn>
+          </v-row>
           <v-row>
             <v-col>
               <v-text-field label="제목" :value="getBoardDetailObserver.title" readonly/>
@@ -55,7 +77,7 @@
     </v-card>
     <v-card-text elevation="10" outlined width="100%" class="mt-4">
       <div>
-        댓글 ({{getBoardDetailObserver.comment_count}})
+        댓글 ({{ getBoardDetailObserver.comment_count }})
       </div>
       <board-detail-comment :board_uid="board_uid"/>
     </v-card-text>
@@ -64,7 +86,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from "vuex";
+import {mapActions, mapGetters, mapMutations} from "vuex";
 import BoardDetailComment from "@/components/board/BoardDetailComment";
 
 export default {
@@ -77,14 +99,35 @@ export default {
     };
   },
   methods: {
-    ...mapActions("boardStore", ["getBoardDetail"]),
+    ...mapActions("boardStore", ["getBoardDetail", "deleteComment", "getBoardKindList", "getBoardList"]),
+    ...mapMutations("boardStore", ["SET_BOARD_KIND_UID", "SET_PREV_PAGE"]),
     _back() {
       this.$router.go(-1);
     },
+    _updateBoard() {
+
+    },
+    async _deleteBoard() {
+      await this.deleteComment(this.getBoardDetailObserver.uid).then((data) => {
+        if (data === true) {
+          alert('삭제를 완료하였습니다.');
+          this.$router.push({name: 'board'})
+          this.getBoardList({
+            board_kind_uid: this.getBoardKindUidObserver,
+            page: 1,
+            range: 10,
+          });
+          this.SET_BOARD_KIND_UID(this.getBoardKindUidObserver);
+          this.SET_PREV_PAGE(1);
+        }
+      })
+    },
+
   },
 
   computed: {
-    ...mapGetters("boardStore", ["getBoardDetailObserver"]),
+    ...mapGetters("boardStore", ["getBoardDetailObserver", "getBoardKindObserver", "getBoardKindUidObserver"]),
+    ...mapGetters("userStore", ["getUserUidObserver"]),
   },
 
   created() {
