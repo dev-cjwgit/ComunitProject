@@ -55,8 +55,8 @@ export default {
     return {
       user: {
         // TODO: 나중에 삭제
-        id: 'cjwgit',
-        pw: 'ss1235789',
+        id: '',
+        pw: '',
       },
 
       idRules: [

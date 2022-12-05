@@ -189,11 +189,11 @@ const boardStore = {
 
             // TODO: range 범위 설정
             let response = autoCheckTokenWithParams(getBoardPages, {
-                board_kind_uid: state.board_kind_uid,
+                board_kind_uid: params.board_kind_uid,
                 page_range: 10,
             }).then((data) => {
                 if (data.result === true) {
-                    commit("SET_MAX_PAGE", response.data);
+                    commit("SET_MAX_PAGE", data.data);
                 }
             });
         },
