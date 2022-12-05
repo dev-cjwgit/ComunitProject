@@ -8,7 +8,7 @@ import {
     getCommentList,
     getCommentPages,
     createComment,
-    deleteComment
+    deleteComment, getBoardCommentCount
 } from "@/api/board"
 
 async function autoCheckTokenWithParams(func, params) {
@@ -101,6 +101,9 @@ const boardStore = {
         }
     },
     mutations: {
+        SET_COMMENT_COUNT(state, payload) {
+            state.board_detail.comment_count = payload;
+        },
         SET_COMMENT_LIST(state, payload) {
             state.board_comment_list = payload;
         },
@@ -179,7 +182,13 @@ const boardStore = {
                 }
             });
         },
-
+        getBoardCommentCount({commit}, params) {
+            autoCheckTokenWithParams(getBoardCommentCount, params).then((data) => {
+                if (data.result === true) {
+                    commit("SET_COMMENT_COUNT", data.data);
+                }
+            })
+        },
         getBoardList({commit, state}, params) {
             autoCheckTokenWithParams(getBoardList, params).then((data) => {
                 if (data.result === true) {

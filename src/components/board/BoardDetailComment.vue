@@ -2,7 +2,8 @@
   <div>
     <v-row justify="center">
       <v-col cols="5">
-        <v-text-field label="댓글을 입력해주세요." v-model="body" type="text" @keyup.enter="_createComment" flat dense solo outlined/>
+        <v-text-field label="댓글을 입력해주세요." v-model="body" type="text" @keyup.enter="_createComment" flat dense solo
+                      outlined/>
       </v-col>
       <v-col cols="1">
         <v-btn class="ma-0" color="accent" @click="_createComment" depressed large>등록하기</v-btn>
@@ -40,7 +41,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions("boardStore", ["getCommentList", "getCommentPages", "createComment"]),
+    ...mapActions("boardStore", ["getCommentList", "getCommentPages", "createComment", "getBoardCommentCount"]),
     _changePage(value) {
       this.page = value;
       // TODO: 댓글 range
@@ -76,6 +77,8 @@ export default {
             page: this.page,
             range: 10,
           });
+
+          this.getBoardCommentCount(this.board_uid);
           this.body = '';
         }
       });
