@@ -8,7 +8,7 @@ import {
     getCommentList,
     getCommentPages,
     createComment,
-    deleteComment,
+    deleteBoard,
     getBoardCommentCount,
     updateBoard
 } from "@/api/board"
@@ -147,9 +147,9 @@ const boardStore = {
             }
             return result;
         },
-        async deleteComment({commit}, params) {
+        async deleteBoard({commit}, params) {
             let result = false;
-            let data = await autoCheckTokenWithParams(deleteComment, params);
+            let data = await autoCheckTokenWithParams(deleteBoard, params);
             if (data !== true) {
                 if (data.result === true) {
                     result = true;

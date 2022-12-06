@@ -99,12 +99,15 @@ export default {
     };
   },
   methods: {
-    ...mapActions("boardStore", ["getBoardDetail", "deleteComment", "getBoardKindList", "getBoardList"]),
+    ...mapActions("boardStore", ["getBoardDetail", "deleteBoard", "getBoardKindList", "getBoardList"]),
     ...mapMutations("boardStore", ["SET_BOARD_KIND_UID", "SET_PREV_PAGE"]),
     _back() {
       this.$router.go(-1);
     },
     _updateBoard() {
+      let like = confirm("정말로 수정하시겠습니까?");
+      if (like !== true)
+        return;
       this.$router.push({
         name: "boardmodify", params: {
           board_uid: this.board_uid,
@@ -112,7 +115,10 @@ export default {
       })
     },
     async _deleteBoard() {
-      await this.deleteComment(this.getBoardDetailObserver.uid).then((data) => {
+      let like = confirm("정말로 삭제하시겠습니까?");
+      if (like !== true)
+        return;
+      await this.deleteBoard(this.getBoardDetailObserver.uid).then((data) => {
         if (data === true) {
           alert('삭제를 완료하였습니다.');
           this.$router.push({name: 'board'})
