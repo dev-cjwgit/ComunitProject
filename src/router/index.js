@@ -52,9 +52,9 @@ const routes = [
         component: () => import("@/components/user/UserSignup")
     },
     {
-      path: '/mypage',
-      name: 'mypage',
-      component: () => import("@/components/user/MyPage")
+        path: '/mypage',
+        name: 'mypage',
+        component: () => import("@/components/user/MyPage")
     },
     {
         path: '/board',
@@ -79,6 +79,12 @@ const routes = [
                 name: 'boarddetail',
                 beforeEnter: authUser,
                 component: () => import("@/components/board/BoardDetail")
+            },
+            {
+                path: 'modify/:board_uid',
+                name: 'boardmodify',
+                beforeEnter: authUser,
+                component: () => import("@/components/board/BoardModify")
             },
         ],
     },

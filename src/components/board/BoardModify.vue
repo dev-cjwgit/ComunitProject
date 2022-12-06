@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <h1>수정하기</h1>
     <v-row>
       <v-col class="text-right mb-4" cols="12">
         <v-btn
@@ -8,9 +9,9 @@
             target="_black"
             exact-active-class="accent--text"
             color="primary"
-            @click="_createBoard"
+            @click="_updateBoard"
             text>
-          글쓰기
+          수정완료
         </v-btn>
       </v-col>
       <v-col class="text-center sm6" cols="12">
@@ -36,7 +37,7 @@
 // Basic Use - Covers most scenarios
 // https://github.com/davidroyer/vue2-editor
 import {VueEditor} from "vue2-editor";
-import {mapActions, mapGetters} from "vuex";
+import {mapActions, mapGetters, mapMutations} from "vuex";
 
 export default {
 
@@ -46,6 +47,7 @@ export default {
   },
   data() {
     return {
+      board_uid: -1,
       title: '',
       body: '',
       customToolbar: [
@@ -67,31 +69,34 @@ export default {
     };
   },
   methods: {
-    ...mapActions("boardStore", ["createBoard", "getBoardList"]),
+    ...mapActions("boardStore", ["getBoardList", "getBoardDetailAsync", "updateBoard"]),
     ...mapGetters("boardStore", ["getBoardKindUidObserver", "getPrevPageObserver"]),
-
-    async _createBoard() {
-      let params = {
-        board_kind_uid: this.getBoardKindUidObserver(),
+    ...mapMutations("boardStore", ["SET_BOARD_DETAIL"]),
+    async _updateBoard() {
+      this.updateBoard({
+        uid: this.board_uid,
         title: this.title,
         body: this.body,
-      };
-      console.log(params);
-      await this.createBoard(params).then((data) => {
-        console.log(data);
+      }).then((data) => {
         if (data === true) {
-          alert("글 등록을 성공하였습니다.");
-          this.getBoardList({
-            board_kind_uid: this.getBoardKindUidObserver(),
-            page: this.getPrevPageObserver(),
-            range: 10,
+          this.$router.push({
+            name: 'boarddetail', params: {
+              board_uid: this.board_uid,
+            }
           });
-          this.$router.go(-1);
         }
-      });
+      })
     },
 
-  }
+  },
+  computed: {},
+  created() {
+    this.board_uid = this.$route.params.board_uid;
+    this.getBoardDetailAsync(this.board_uid).then((data) => {
+      this.title = data.title;
+      this.body = data.body;
+    });
+  },
 }
 </script>
 

@@ -105,7 +105,11 @@ export default {
       this.$router.go(-1);
     },
     _updateBoard() {
-
+      this.$router.push({
+        name: "boardmodify", params: {
+          board_uid: this.board_uid,
+        }
+      })
     },
     async _deleteBoard() {
       await this.deleteComment(this.getBoardDetailObserver.uid).then((data) => {

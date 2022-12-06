@@ -8,7 +8,9 @@ import {
     getCommentList,
     getCommentPages,
     createComment,
-    deleteComment, getBoardCommentCount
+    deleteComment,
+    getBoardCommentCount,
+    updateBoard
 } from "@/api/board"
 
 async function autoCheckTokenWithParams(func, params) {
@@ -155,6 +157,16 @@ const boardStore = {
             }
             return result;
         },
+        async updateBoard({commit}, params) {
+            let result = false;
+            let data = await autoCheckTokenWithParams(updateBoard, params);
+            if (data !== true) {
+                if (data.result === true) {
+                    result = true;
+                }
+            }
+            return result
+        },
         getCommentPages({commit}, params) {
             autoCheckTokenWithParams(getCommentPages, params).then((data) => {
                 commit("SET_COMMENT_MAX_PAGE", data.data);
@@ -173,6 +185,16 @@ const boardStore = {
             autoCheckTokenWithParams(getBoardDetail, params).then((data) => {
                 commit("SET_BOARD_DETAIL", data.data);
             })
+        },
+
+        async getBoardDetailAsync({commit}, params) {
+            let result = false;
+            await autoCheckTokenWithParams(getBoardDetail, params).then(
+                async (data) => {
+                    result = data.data;
+                });
+
+            return result;
         },
 
         getBoardKindList({commit}) {
