@@ -19,6 +19,7 @@
               label="Password"
               :rules="pwRules"
               type="password"
+              @keyup.enter="_userLogin"
               required
           ></v-text-field>
           <v-row justify="space-between" class="pa-4">
