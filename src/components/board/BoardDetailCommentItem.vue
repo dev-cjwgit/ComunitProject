@@ -38,7 +38,7 @@ export default {
     this.o_body = this.body
   },
   methods: {
-    ...mapActions("boardStore", ["deleteComment", "getCommentList", "updateComment"]),
+    ...mapActions("boardStore", ["deleteComment", "getCommentList", "updateComment", "getBoardCommentCount"]),
     _updateComment() {
       let like = confirm("정말로 수정하시겠습니까?");
       if (like !== true)
@@ -56,8 +56,6 @@ export default {
             page: 1,
             range: 10,
           });
-          this.getBoardCommentCount(this.board_uid);
-
         } else {
           alert("수정에 실패하였습니다.");
         }
