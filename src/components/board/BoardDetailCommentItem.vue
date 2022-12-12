@@ -34,8 +34,14 @@ export default {
   computed: {
     ...mapGetters("userStore", ["getUserUidObserver"]),
   },
+  watch: {
+    body() {
+      this.o_body = this.body;
+    }
+  },
+
   created() {
-    this.o_body = this.body
+    this.o_body = this.body;
   },
   methods: {
     ...mapActions("boardStore", ["deleteComment", "getCommentList", "updateComment", "getBoardCommentCount"]),
