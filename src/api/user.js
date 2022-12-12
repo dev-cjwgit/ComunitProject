@@ -46,4 +46,8 @@ async function setMypage(params, success, fail) {
     await api_headers.post(`/user/mypage`, JSON.stringify(params)).then(success).catch(fail);
 }
 
-export {login, tokenRegeneration, testFunc, signup, checkEmail, signupRules, authUser, getMypage, setMypage};
+async function findMyPW(params, success, fail) {
+    await api.post(`/user/find/password`, JSON.stringify(params)).then(success).catch(fail);
+}
+
+export {login, tokenRegeneration, testFunc, signup, checkEmail, signupRules, authUser, getMypage, setMypage, findMyPW};

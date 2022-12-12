@@ -86,7 +86,7 @@ export default {
     },
 
     _findPW() {
-
+      this.$router.push({name: "findpw"});
     }
   },
   computed: {},

@@ -42,6 +42,11 @@ const routes = [
         component: () => import("@/views/AppLogin.vue"),
     },
     {
+        path: '/findpw',
+        name: 'findpw',
+        component: () => import("@/components/user/FindPW"),
+    },
+    {
         path: '/check',
         name: "check",
         component: () => import("@/views/AppEmailCheck"),

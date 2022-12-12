@@ -9,9 +9,11 @@ import {
     signupRules,
     authUser,
     getMypage,
-    setMypage
+    setMypage,
+    findMyPW
 } from "@/api/user";
 import store from "@/store";
+import {updateBoard} from "@/api/board";
 
 async function autoCheckTokenWithParams(func, params) {
     let result = false;
@@ -127,6 +129,17 @@ const userStore = {
             sessionStorage.removeItem("access-token");
             sessionStorage.removeItem("refresh-token");
 
+        },
+
+        async findMyPW({commit}, params) {
+            let result = false;
+            let data = await autoCheckTokenWithParams(findMyPW, params);
+            if (data !== true) {
+                if (data.result === true) {
+                    result = true;
+                }
+            }
+            return result
         },
 
         async testFunc({commit}) {
