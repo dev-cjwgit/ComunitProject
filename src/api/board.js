@@ -52,6 +52,11 @@ async function deleteComment(params, success, fail) {
     await api_headers.delete(`/board/comment/${params}`).then(success).catch(fail);
 }
 
+async function updateComment(params, success, fail) {
+    api_headers.defaults.headers["Authorization"] = "Bearer " + sessionStorage.getItem("access-token");
+    await api_headers.put(`/board/comment`, JSON.stringify(params)).then(success).catch(fail);
+}
+
 async function deleteBoard(params, success, fail) {
     api_headers.defaults.headers["Authorization"] = "Bearer " + sessionStorage.getItem("access-token");
     await api_headers.delete(`/board/${params}`).then(success).catch(fail);
@@ -75,4 +80,5 @@ export {
     getBoardCommentCount,
     updateBoard,
     deleteComment,
+    updateComment,
 };
