@@ -10,7 +10,8 @@ import {
     createComment,
     deleteBoard,
     getBoardCommentCount,
-    updateBoard
+    updateBoard,
+    deleteComment
 } from "@/api/board"
 
 async function autoCheckTokenWithParams(func, params) {
@@ -137,6 +138,16 @@ const boardStore = {
 
     },
     actions: {
+        async deleteComment({commit}, params) {
+            let result = false;
+            let data = await autoCheckTokenWithParams(deleteComment, params);
+            if (data !== true) {
+                if (data.result === true) {
+                    result = true;
+                }
+            }
+            return result;
+        },
         async createComment({commit}, params) {
             let result = false;
             let data = await autoCheckTokenWithParams(createComment, params);

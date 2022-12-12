@@ -12,6 +12,8 @@
 
     <div v-for="item in getBoardCommentListObserver">
       <board-detail-comment-item
+          :board_uid="item.board_uid"
+          :comment_uid="item.uid"
           :body="item.body"
           :nickname="item.nickname"
           :sdate="item.sdate"
