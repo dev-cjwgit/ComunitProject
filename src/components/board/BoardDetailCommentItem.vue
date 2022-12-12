@@ -5,7 +5,7 @@
       </v-text-field>
 
       <v-row>
-        {{ nickname }} - {{ sdate | timestampToDate }}
+        {{ nickname }} - {{ udate | timestampToDate }}
       </v-row>
     </v-col>
     <span v-if="getUserUidObserver === user_uid">
