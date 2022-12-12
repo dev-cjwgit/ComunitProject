@@ -28,6 +28,10 @@ export default {
 
     },
     _deleteComment() {
+      let like = confirm("정말로 삭제하시겠습니까?");
+      if (like !== true)
+        return;
+
       this.deleteComment(this.comment_uid).then((data) => {
         if (data === true) {
           alert("삭제에 성공하였습니다.");
